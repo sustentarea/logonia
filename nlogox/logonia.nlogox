@@ -2,7 +2,7 @@
 <model version="NetLogo 7.0.0" snapToGrid="true">
   <code><![CDATA[; Logônia: Plant Growth Response Model in NetLogo
 ;
-; Version: v1.1.0.9000 (2025-09-16)
+; Version: v1.1.0.9000 (Development Version)
 ; Authors: Daniel Vartanian, Leandro Garcia, & Aline M. de Carvalho
 ; Maintainer: Daniel Vartanian <https://github.com/danielvartan>
 ; License: GPLv3 <https://www.gnu.org/licenses/gpl-3.0>
@@ -20,7 +20,6 @@ __includes [
   "nls/random-between.nls"
   "nls/update-moving-average.nls"
   "nls/check-false.nls" ; LogoClim
-  "nls/check-inspection.nls" ; LogoClim
   "nls/check-start-year.nls" ; LogoClim
   "nls/combine.nls" ; LogoClim
   "nls/inspect-climate-variables.nls" ; LogoClim
@@ -49,7 +48,6 @@ globals [
   tmax-ls-model ; LogoClim
   prec-ls-model ; LogoClim
   patch-coordinates ; LogoClim
-  inspection ; LogoClim
   settings ; LogoClim
 ]
 
@@ -57,6 +55,7 @@ breed [logonias logonia]
 
 patches-own [
   growth-probability
+  ever-occupied?
   tmin ; LogoClim
   tmin-12 ; LogoClim
   tmin-12ma ; LogoClim
@@ -80,14 +79,8 @@ to setup
   clear-all
 
   assert-start-year ; LogoClim
-  assert-inspection ; LogoClim
 
-  if ( ; LogoClim
-    (test-start-year = false) or
-    (test-inspection = false)
-  ) [
-    stop
-  ]
+  if (test-start-year = false) [stop] ; LogoClim
 
   ls:reset ; LogoClim
 
@@ -96,54 +89,62 @@ to setup
   setup-variables ; LogoClim
   setup-patches ; LogoClim
 
-  ifelse (inspection = true) [ ; LogoClim
-    inspect-climate-variables
-  ] [
-    ask patches [
-      set pcolor gray + 4
-      set growth-probability compute-growth-probability self
-    ]
+  if (inspect-var? = true) [inspect-climate-variables] ; LogoClim
 
-    create-logonias initial-logonias [
-      let #chance random-float 1
+  ask patches [
+    set growth-probability compute-growth-probability self
+    set pcolor gray + 4
+  ]
 
-      (ifelse (#chance <= 0.2) [
-        set #chance random-between 30 50
+  create-logonias initial-logonias [
+    let #chance random-float 1
 
-        set age #chance
-        set phase "adult"
-        set shape "adult"
-        set energy #chance
-      ] ((#chance > 0.2) and (#chance <= 0.5)) [
-        set #chance random-between 10 30
+    (ifelse (#chance <= 0.2) [
+      set #chance random-between 30 50
 
-        set age #chance
-        set phase "juvenile"
-        set shape "juvenile"
-        set energy #chance
-      ] [
-        set #chance random-between 1 10
+      set age #chance
+      set phase "adult"
+      set shape "adult"
+      set energy #chance
+    ] ((#chance > 0.2) and (#chance <= 0.5)) [
+      set #chance random-between 10 30
 
-        set age #chance
-        set phase "seedling"
-        set shape "seedling"
-        set energy #chance
-      ])
+      set age #chance
+      set phase "juvenile"
+      set shape "juvenile"
+      set energy #chance
+    ] [
+      set #chance random-between 1 10
 
-      set size 2
+      set age #chance
+      set phase "seedling"
+      set shape "seedling"
+      set energy #chance
+    ])
+
+    set size 2
+    setxy random-pxcor random-pycor
+
+    while [any? other turtles-here] [
       setxy random-pxcor random-pycor
-
-      while [any? other turtles-here] [
-        setxy random-pxcor random-pycor
-      ]
-
-      colorize
-
-      ask patch-here [set pcolor brown + 3]
-      set ycor ycor + 1
     ]
 
-    update-moving-average
+    colorize
+
+    ask patch-here [set ever-occupied? true]
+    set ycor ycor + 1
+  ]
+
+  update-moving-average
+
+  if (inspect-var? = false) [
+    ask patches [
+      ifelse (ever-occupied? = true) [
+        set pcolor brown + 3
+      ] [
+        set pcolor gray + 4
+      ]
+    ]
   ]
 
   plot-sigmoid
@@ -152,16 +153,7 @@ to setup
 end
 
 to go
-  if ( ; LogoClim
-    (month = "December") and (year = 2024) or
-    (
-      (inspection = true) and
-      ((not any-inspection?) or (test-inspection = false))
-    )
-  ) [
-    assert-inspection
-    stop
-  ]
+  if ((month = "December") and (year = 2024)) [stop] ; LogoClim
 
   ls:ask ls:models [go] ; LogoClim
 
@@ -173,25 +165,37 @@ to go
 
   set max-plot-x ceiling ((ticks + 1) * 1.25)
 
-  ifelse (inspection = true) [ ; LogoClim
+  ifelse (inspect-var? = true) [ ; LogoClim
     inspect-climate-variables
   ] [
-    ask patches [
-      set growth-probability compute-growth-probability self
-    ]
-
-    ask logonias [
-      grow
-      reproduce
-      senesce
-
-      if ((energy <= 0) or (age >= 100)) [die]
-    ]
-
-    update-moving-average
-
-    if (not any? logonias) [stop]
+    ask logonias [show-turtle]
   ]
+
+  ask patches [
+    set growth-probability compute-growth-probability self
+  ]
+
+  ask logonias [
+    grow
+    reproduce
+    senesce
+
+    if ((energy <= 0) or (age >= 100)) [die]
+  ]
+
+  if (inspect-var? = false) [
+    ask patches [
+      ifelse (ever-occupied? = true) [
+        set pcolor brown + 3
+      ] [
+        set pcolor gray + 4
+      ]
+    ]
+  ]
+
+  update-moving-average
+
+  if (not any? logonias) [stop]
 
   tick
 end
@@ -235,7 +239,7 @@ to reproduce
       ifelse (any? other turtles-here) [
         die
       ] [
-        ask patch-here [set pcolor brown + 3]
+        ask patch-here [set ever-occupied? true]
         set ycor ycor + 1
       ]
     ]
@@ -303,89 +307,57 @@ end]]></code>
   [year]</monitor>
     <plot x="905" autoPlotX="true" yMax="0.0" autoPlotY="true" yAxis="Frequency" y="75" xMin="0.0" height="300" legend="true" xMax="0.0" yMin="0.0" width="505" xAxis="Months" display="Logônias">
       <setup></setup>
-      <update>ifelse (inspection = true) [
-  clear-plot
-] [
-  set-plot-x-range 0 max-plot-x
-]</update>
+      <update>set-plot-x-range 0 max-plot-x</update>
       <pen interval="1.0" mode="0" display="(Cycle Indicator)" color="-16777216" legend="false">
         <setup></setup>
-        <update>ifelse (inspection = true) [
-  clear-plot
+        <update>ifelse ((start-month = month) and (not (index = 0))) [
+  set-plot-pen-color black
 ] [
-  ifelse ((start-month = month) and (not (index = 0))) [
-    set-plot-pen-color black
-  ] [
-    set-plot-pen-color white
-  ]
+  set-plot-pen-color white
+]
 
-  plot 0.1
-]</update>
+plot 0.1</update>
       </pen>
       <pen interval="1.0" mode="0" display="Seedling" color="-2754856" legend="true">
         <setup></setup>
-        <update>ifelse (inspection = true) [
-  clear-plot
-] [
-  plot count logonias with [shape = "seedling"]
-]</update>
+        <update>plot count logonias with [shape = "seedling"]</update>
       </pen>
       <pen interval="1.0" mode="0" display="Seedling 12MA" color="-13840069" legend="true">
         <setup></setup>
-        <update><![CDATA[ifelse (inspection = true) [
-  clear-plot
+        <update><![CDATA[ifelse ((length seedling-12) >= 12) [
+  set-plot-pen-color lime
+  plot mean seedling-12
 ] [
-  ifelse ((length seedling-12) >= 12) [
-    set-plot-pen-color lime
-    plot mean seedling-12
-  ] [
-    set-plot-pen-color lime + 4
-    plot count logonias with [shape = "seedling"]
-  ]
+  set-plot-pen-color lime + 4
+  plot count logonias with [shape = "seedling"]
 ]]]></update>
       </pen>
       <pen interval="1.0" mode="0" display="Juvenile" color="-526419" legend="true">
         <setup></setup>
-        <update>ifelse (inspection = true) [
-  clear-plot
-] [
-  plot count logonias with [shape = "juvenile"]
-]</update>
+        <update>plot count logonias with [shape = "juvenile"]</update>
       </pen>
       <pen interval="1.0" mode="0" display="Juvenile 12MA" color="-7171555" legend="true">
         <setup></setup>
-        <update><![CDATA[ifelse (inspection = true) [
-  clear-plot
+        <update><![CDATA[ifelse ((length juvenile-12) >= 12) [
+  set-plot-pen-color yellow - 2
+  plot mean juvenile-12
 ] [
-  ifelse ((length juvenile-12) >= 12) [
-    set-plot-pen-color yellow - 2
-    plot mean juvenile-12
-  ] [
-    set-plot-pen-color yellow + 4
-    plot count logonias with [shape = "juvenile"]
-  ]
+  set-plot-pen-color yellow + 4
+  plot count logonias with [shape = "juvenile"]
 ]]]></update>
       </pen>
       <pen interval="1.0" mode="0" display="Adult" color="-1318182" legend="true">
         <setup></setup>
-        <update>ifelse (inspection = true) [
-  clear-plot
-] [
-  plot count logonias with [shape = "adult"]
-]</update>
+        <update>plot count logonias with [shape = "adult"]</update>
       </pen>
       <pen interval="1.0" mode="0" display="Adult 12MA" color="-6459832" legend="true">
         <setup></setup>
-        <update><![CDATA[ifelse (inspection = true) [
-  clear-plot
+        <update><![CDATA[ifelse ((length adult-12) >= 12) [
+  set-plot-pen-color brown
+  plot mean adult-12
 ] [
-  ifelse ((length adult-12) >= 12) [
-    set-plot-pen-color brown
-    plot mean adult-12
-  ] [
-    set-plot-pen-color brown + 4
-    plot count logonias with [shape = "adult"]
-  ]
+  set-plot-pen-color brown + 4
+  plot count logonias with [shape = "adult"]
 ]]]></update>
       </pen>
     </plot>
@@ -397,19 +369,12 @@ end]]></code>
       <update></update>
       <pen interval="0.1" mode="1" display="Growth Prob." color="-16777216" legend="true">
         <setup></setup>
-        <update>ifelse (inspection = true) [
-  clear-plot
-] [
-  histogram [growth-probability] of patches with [not is-false? tmin]
-]</update>
+        <update>histogram [growth-probability] of patches with [not is-false? tmin]</update>
       </pen>
     </plot>
     <monitor x="1310" precision="5" y="445" height="120" fontSize="11" width="100" display="Mean G. P.">mean [growth-probability] of patches with [not is-false? tmin]</monitor>
     <note x="10" y="640" backgroundDark="0" fontSize="15" width="1400" markdown="true" height="26" textColorDark="-1" textColorLight="-16777216" backgroundLight="0"><![CDATA[<div style="text-align: center;">Climate Variables Inspection</div>]]></note>
     <button x="205" y="675" height="60" disableUntilTicks="false" forever="true" kind="Observer" width="135" display="Show Values">show-values</button>
-    <switch x="345" y="675" height="60" on="false" variable="inspect-tmin" width="120" display="inspect-tmin"></switch>
-    <switch x="470" y="675" height="60" on="false" variable="inspect-tmax" width="120" display="inspect-tmax"></switch>
-    <switch x="595" y="675" height="60" on="false" variable="inspect-prec" width="115" display="inspect-prec"></switch>
     <plot x="205" autoPlotX="true" yMax="36.0" autoPlotY="true" yAxis="Global Mean" y="740" xMin="0.0" height="240" legend="true" xMax="0.0" yMin="18.0" width="505" xAxis="Months" display="Average Temperature (°C)">
       <setup></setup>
       <update>set-plot-x-range 0 max-plot-x</update>
@@ -511,6 +476,12 @@ ifelse (#length = 12) [
         <update></update>
       </pen>
     </plot>
+    <switch x="345" y="675" height="60" on="false" variable="inspect-var?" width="116" display="inspect-var?"></switch>
+    <chooser x="465" y="675" height="60" variable="inspection-var" current="0" width="245" display="inspection-var">
+      <choice type="string" value="Average Minimum Temperature (°C)"></choice>
+      <choice type="string" value="Average Maximum Temperature (°C)"></choice>
+      <choice type="string" value="Total Precipitation (mm)"></choice>
+    </chooser>
   </widgets>
   <info><![CDATA[# LOGÔNIA: PLANT GROWTH RESPONSE MODEL
 
@@ -635,11 +606,13 @@ The model interface also includes tools for the inspecting climate variables and
 
 This section lets you track the climate variables during the simulation and map their spatial distribution.
 
+To visualize the underlying values of the climate variables on the world map, activate the `inspect-var?` switch or the `Show Values` button. See the sections below for details.
+
 See a showcase of this feature at the following link: https://youtu.be/pz0UNH6t-kE?si=KbOdO-G73o_bqRp5
 
 #### COLOR SCALE
 
-When visualizing the spatial distribution of each variable, the model represents values on a gradient from `black` (lowest) to `white` (highest). Each data series is displayed in a distinct color.
+When visualizing the spatial distribution of each variable on the world map, the model represents values on a gradient from `black` (lowest) to `white` (highest). Each data series is displayed in a distinct color.
 
 #### INTERFACE CONTROLS
 
@@ -647,11 +620,10 @@ When visualizing the spatial distribution of each variable, the model represents
 
 - **`Show Values`**: When activated, displays patch values when hovering the mouse over them.
 
-##### SWITCHERS
+##### SWITCHERS AND CHOOSERS
 
-- **`inspect-tmin`**: Switch for toggling the inspection of the *Average Minimum Temperature (°C)* variable on the world map.
-- **`inspect-tmax`**: Switch for toggling the inspection of the *Average Maximum Temperature (°C)* variable on the world map.
-- **`inspect-prec`**: Switch for toggling the inspection of the *Total Precipitation (mm)* variable on the world map.
+- **`inspect-var?`**: Switch for toggling the inspection of the selected climate variable on the world map (default: `false`).
+- **`inspection-var`**: Chooser for selecting which climate variable to inspect on the world map. Options include `Average Minimum Temperature (°C)`, `Average Maximum Temperature (°C)`, and `Total Precipitation (mm)` (default: `Average Minimum Temperature (°C)`).
 
 ##### MONITORS AND PLOTS
 

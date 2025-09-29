@@ -5,26 +5,19 @@
 ; ]
 
 to inspect-climate-variables
-  if (
-    (
-      (inspect-tmin = true) or
-      (inspect-tmax = true) or
-      (inspect-prec = true)
-    ) and
-    (check-inspection = true)
-  ) [
+  if (inspect-var? = true) [
     ask logonias [hide-turtle]
 
     let #color 0
     let #var 0
 
-    (ifelse (inspect-tmin = true) [
+    (ifelse (inspection-var = "Average Minimum Temperature (°C)") [
       set #color lime
       set #var "tmin"
-    ] (inspect-tmax = true) [
+    ] (inspection-var = "Average Maximum Temperature (°C)") [
       set #color 42.7
       set #var "tmax"
-    ] (inspect-prec = true) [
+    ] (inspection-var = "Total Precipitation (mm)") [
       set #color brown
       set #var "prec"
     ])

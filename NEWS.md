@@ -1,6 +1,9 @@
 ## v1.1.0.9000 (Development Version)
 
 - Update to LogoCLim v2.1.0.9000.
+- Updated the *Climate Variable Inspection* world visualization mechanics.
+- Removed `inspection` as global variable and dropped the switches `inspect-tmin`, `inspect-tmax`, and `inspect-prec`. Added a single switch `inspect-var?`, along with a chooser, `inspection-var`, to select the climate variable to inspect. The model now don't halt when toggling the switch during the simulation.
+- Updated the documentation to reflect these changes.
 
 ## v1.1.0 (2025-09-16)
 

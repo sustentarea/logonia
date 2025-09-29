@@ -19,12 +19,6 @@ to setup-variables
   set year [year] ls:of tmin-ls-model
   set max-plot-x 2 ; When `index = 0`.
 
-  ifelse (any-inspection? = true) [
-    set inspection true
-  ] [
-    set inspection false
-  ]
-
   set settings (list
     initial-logonias
     reproduction-rate
@@ -37,6 +31,5 @@ to setup-variables
     "10 Minutes (~340 km2 at the Equator)" ; data-resolution
     start-month
     start-year
-    inspection
   )
 end

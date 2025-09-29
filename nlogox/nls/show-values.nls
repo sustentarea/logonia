@@ -1,53 +1,42 @@
 to show-values
-  assert-inspection
-
-  let #test (sentence inspect-tmin inspect-tmax inspect-prec)
-
-  ifelse (
-    (test-inspection = true) and
-    ((length filter [i -> i = true] #test) > 0)
-  ) [
-    let #var 0
-
-    (ifelse (inspect-tmin = true) [
-      set #var "tmin"
-    ] (inspect-tmax = true) [
-      set #var "tmax"
-    ] (inspect-prec = true) [
-      set #var "prec"
-    ])
-
-    ifelse mouse-inside? [
-      ask patch mouse-xcor mouse-ycor [
-        let #radius-mean round mean [pcolor] of patches in-radius 3
-        let #pcolor-brightness item 2 (extract-hsb pcolor)
-        let #radius-mean-brightness item 2 (extract-hsb #radius-mean)
-        let #brightness #radius-mean-brightness
-
-        if (abs (#pcolor-brightness - #radius-mean-brightness) > 50) [
-          set #brightness #pcolor-brightness
-        ]
-
-        ifelse (#brightness > 70) [
-          set plabel-color black
-        ] [
-          set plabel-color white
-        ]
-
-        carefully [
-          set plabel precision (runresult #var) 2
-        ] [
-          set plabel (runresult #var)
-        ]
+  let #var 0
+  
+  (ifelse (inspection-var = "Average Minimum Temperature (°C)") [
+    set #var "tmin"
+  ] (inspection-var = "Average Maximum Temperature (°C)") [
+    set #var "tmax"
+  ] (inspection-var = "Total Precipitation (mm)") [
+    set #var "prec"
+  ])
+  
+  ifelse mouse-inside? [
+    ask patch mouse-xcor mouse-ycor [
+      let #radius-mean round mean [pcolor] of patches in-radius 3
+      let #pcolor-brightness item 2 (extract-hsb pcolor)
+      let #radius-mean-brightness item 2 (extract-hsb #radius-mean)
+      let #brightness #radius-mean-brightness
+      
+      if (abs (#pcolor-brightness - #radius-mean-brightness) > 50) [
+        set #brightness #pcolor-brightness
       ]
-
-      ask other patches who-are-not patch mouse-xcor mouse-ycor [
-        set plabel ""
+      
+      ifelse (#brightness > 70) [
+        set plabel-color black
+      ] [
+        set plabel-color white
       ]
-    ] [
-      ask patches [set plabel ""]
+      
+      carefully [
+        set plabel precision (runresult #var) 2
+      ] [
+        set plabel (runresult #var)
+      ]
+    ]
+    
+    ask other patches who-are-not patch mouse-xcor mouse-ycor [
+      set plabel ""
     ]
   ] [
-    stop
+    ask patches [set plabel ""]
   ]
 end
