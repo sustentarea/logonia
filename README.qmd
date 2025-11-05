@@ -172,7 +172,7 @@ You can download the latest release of the model from its [GitHub releases page]
 
 ```{=gfm}
 > [!IMPORTANT]
-> Download all repository files, not only the `nlogox` folder.
+> When using the development version, download all repository files, not only the `nlogox` folder.
 ```
 
 ### Running the Model
