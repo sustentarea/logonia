@@ -24,7 +24,7 @@
 
 `Logônia` runs on a grid of patches, where each patch represents a piece of soil that can host a plant. Patches correspond to a specific geographic area and store historical climate data.
 
-Each simulation step represents *one month*. Over time, plants *grow*, *reproduce*, and *age*. These processes are controlled by sliders on the model's interface. Climate conditions directly influence growth probability, adding realism and complexity to the simulation.
+Each simulation step represents *one month*. Over time, plants *grow*, *reproduce*, and *age*. These processes are controlled by sliders in the model's interface. Climate conditions directly influence growth probability, adding realism and complexity to the simulation.
 
 <p align="center">
   <img src="images/logonia-evolution.svg" height=125px />
@@ -34,13 +34,13 @@ Each simulation step represents *one month*. Over time, plants *grow*, *reproduc
 
 The model uses *Historical Monthly Weather Data* from [WorldClim 2.1](https://worldclim.org/) ([Fick & Hijmans, 2017](https://doi.org/10.1002/joc.5086)) for a region of the **Brazilian Amazon Forest**.
 
-This dataset provides 12 monthly values per year for 1951–2024, based on [downscaled](https://worldclim.org/data/downscaling.html) data from [CRU-TS-4.09](https://crudata.uea.ac.uk/cru/data/hrg/cru_ts_4.09/), developed by the [Climatic Research Unit](https://www.uea.ac.uk/groups-and-centres/climatic-research-unit) at the [University of East Anglia](https://www.uea.ac.uk/) ([Harris et al., 2020](https://doi.org/10.1038/s41597-020-0453-3)). The variables are: *Average Minimum Temperature (°C)* (**A**), *Average Maximum Temperature (°C)* (**B**), and *Total Precipitation (mm)* (**C**).
+This dataset provides 12 monthly values per year for 1951-2024, based on [downscaled](https://worldclim.org/data/downscaling.html) data from [CRU-TS-4.09](https://crudata.uea.ac.uk/cru/data/hrg/cru_ts_4.09/), developed by the [Climatic Research Unit](https://www.uea.ac.uk/groups-and-centres/climatic-research-unit) at the [University of East Anglia](https://www.uea.ac.uk/) ([Harris et al., 2020](https://doi.org/10.1038/s41597-020-0453-3)). The variables are: (**A**) *Average Minimum Temperature (°C)*, (**B**) *Average Maximum Temperature (°C)*, and (**C**) *Total Precipitation (mm)*.
 
 <p align="center">
   <img src="images/worldclim-animation.gif" height=150px />
 </p>
 
-The dataset can be reproduced using [Quarto](https://quarto.org/) notebooks in the `qmd` folder of the model repository, adapted from those in the [`LogoClim`](https://github.com/sustentarea/logoclim) model.
+The dataset can be reproduced using a [Quarto](https://quarto.org/) notebook in the `qmd` folder of the model repository.
 
 ### Energy and Growth Probability
 
@@ -91,7 +91,7 @@ Plants age by `1` month per step. Age is shown by color, fading from lime to bro
 
 ## Usage
 
-> See a showcase of the model at the following link: https://youtu.be/kzfTuw9U-wI?si=ztyGvA5_ztb5dew9
+> Click [here](https://youtube.com/playlist?list=PL1CZfe9j9vWFY1U0YCzdVvGFDEFzf2NO4&si=fxaLGQnBcx180eNL) to see a showcase of the model.
 
 ### Setup
 
@@ -102,10 +102,6 @@ The model relies on the NetLogo extensions [`LevelSpace`](https://ccl.northweste
 ### Downloading the Model
 
 You can download the latest release of the model from its [GitHub releases page](https://github.com/sustentarea/logonia/releases/latest). For the development version, you can clone or download this GitHub repository directly.
-
-### Preparing the Data
-
-`Logônia` already comes with the necessary climate data for the simulation. You can reproduce the same dataset by running the [Quarto](https://quarto.org/) notebooks in the `qmd` folder of the model repository.
 
 ### Running the Model
 
@@ -122,11 +118,6 @@ Contributions are always welcome, whether that's reporting bugs, suggesting feat
 Before opening a new issue, please check the [issues tab](https://github.com/sustentarea/logoclim/issues) to see if your topic has already been reported.
 
 ## Citation
-
-> [!NOTE]
-> When using WorldClim data, you must also cite the original data sources.
->
-> The appropriate citation depends on the specific dataset utilized. Please refer to the [WorldClim website](https://www.worldclim.org/data/index.html#citation) for up-to-date citation guidelines and dataset references.
 
 To cite `Logônia` please use the following format:
 

@@ -500,19 +500,19 @@ ifelse (#length = 12) [
 
 `Logônia` runs on a grid of patches, where each patch represents a piece of soil that can host a plant. Patches correspond to a specific geographic area and store historical climate data.
 
-Each simulation step represents *one month*. Over time, plants *grow*, *reproduce*, and *age*. These processes are controlled by sliders on the model's interface (described below). Climate conditions directly influence growth probability, adding realism and complexity to the simulation.
+Each simulation step represents *one month*. Over time, plants *grow*, *reproduce*, and *age*. These processes are controlled by sliders in the model's interface. Climate conditions directly influence growth probability, adding realism and complexity to the simulation.
 
 ### CLIMATE DATA
 
 The model uses *Historical Monthly Weather Data* from [WorldClim 2.1](https://worldclim.org/) ([Fick & Hijmans, 2017](https://doi.org/10.1002/joc.5086)) for a region of the **Brazilian Amazon Forest**.
 
-This dataset provides 12 monthly values per year for 1951-2024, based on [downscaled](https://worldclim.org/data/downscaling.html) data from [CRU-TS-4.09](https://crudata.uea.ac.uk/cru/data/hrg/cru_ts_4.09/), developed by the [Climatic Research Unit](https://www.uea.ac.uk/groups-and-centres/climatic-research-unit) at the [University of East Anglia](https://www.uea.ac.uk/) ([Harris et al., 2020](https://doi.org/10.1038/s41597-020-0453-3)). The variables are: *Average Minimum Temperature (°C)* (**A**), *Average Maximum Temperature (°C)* (**B**), and *Total Precipitation (mm)* (**C**).
+This dataset provides 12 monthly values per year for 1951-2024, based on [downscaled](https://worldclim.org/data/downscaling.html) data from [CRU-TS-4.09](https://crudata.uea.ac.uk/cru/data/hrg/cru_ts_4.09/), developed by the [Climatic Research Unit](https://www.uea.ac.uk/groups-and-centres/climatic-research-unit) at the [University of East Anglia](https://www.uea.ac.uk/) ([Harris et al., 2020](https://doi.org/10.1038/s41597-020-0453-3)). The variables are: (**A**) *Average Minimum Temperature (°C)*, (**B**) *Average Maximum Temperature (°C)*, and (**C**) *Total Precipitation (mm)*.
 
 <p align="center">
   <img src="worldclim-animation" />
 </p>
 
-The dataset can be reproduced using [Quarto](https://quarto.org/) notebooks in the `qmd` folder of the model repository, adapted from those in the [`LogoClim`](https://github.com/sustentarea/logoclim) model.
+The dataset can be reproduced using a [Quarto](https://quarto.org/) notebook in the `qmd` folder of the [model repository](https://github.com/sustentarea/logonia).
 
 ### ENERGY AND GROWTH PROBABILITY
 
@@ -563,7 +563,7 @@ Plants age by `1` month per step. Age is shown by color, fading from lime to bro
 
 ## HOW TO USE IT
 
-See a showcase of the model at the following link: <https://youtu.be/kzfTuw9U-wI?si=ztyGvA5_ztb5dew9>.
+> Click [here](https://youtube.com/playlist?list=PL1CZfe9j9vWFY1U0YCzdVvGFDEFzf2NO4&si=fxaLGQnBcx180eNL) to see a showcase of the model.
 
 ### SETUP
 
@@ -609,9 +609,9 @@ The model interface also includes tools for the inspecting climate variables and
 
 This section lets you track the climate variables during the simulation and map their spatial distribution.
 
-To visualize the underlying values of the climate variables on the world map, activate the `inspect-var?` switch or the `Show Values` button. See the sections below for details.
+To visualize the underlying values of the climate variables on the world map, activate the **`inspect-var?`** switch or the **`Show Values`** button. See the sections below for details.
 
-See a showcase of this feature at the following link: <https://youtu.be/pz0UNH6t-kE?si=KbOdO-G73o_bqRp5>.
+Click [here](https://www.youtube.com/watch?v=pz0UNH6t-kE&list=PL1CZfe9j9vWFY1U0YCzdVvGFDEFzf2NO4&index=2) to see a showcase of this feature.
 
 #### COLOR SCALE
 
@@ -625,8 +625,8 @@ When visualizing the spatial distribution of each variable on the world map, the
 
 ##### SWITCHERS AND CHOOSERS
 
-- **`inspect-var?`**: Switch for toggling the inspection of the selected climate variable on the world map (default: `false`).
-- **`inspection-var`**: Chooser for selecting which climate variable to inspect on the world map. Options include `Average Minimum Temperature (°C)`, `Average Maximum Temperature (°C)`, and `Total Precipitation (mm)` (default: `Average Minimum Temperature (°C)`).
+- **`inspect-var?`** (`boolean`): Switch for toggling the inspection of the selected climate variable on the world map.
+- **`inspection-var`** (`string`): Chooser for selecting which climate variable to inspect on the world map (e.g., `Average Minimum Temperature (°C)`).
 
 ##### MONITORS AND PLOTS
 
@@ -640,7 +640,7 @@ When visualizing the spatial distribution of each variable on the world map, the
 
 This section lets you inspect the logistic regression model used to calculate growth probability and see how parameter changes affect the curve.
 
-See a showcase of this feature at the following link: https://youtu.be/AsN6Geu3FCo?si=OhXxH1rf7u1OfkHy
+Click [here](https://www.youtube.com/watch?v=pz0UNH6t-kE&list=PL1CZfe9j9vWFY1U0YCzdVvGFDEFzf2NO4&index=3) to see a showcase of this feature.
 
 #### INTERFACE
 
@@ -650,13 +650,13 @@ See a showcase of this feature at the following link: https://youtu.be/AsN6Geu3F
 
 ##### CHOOSERS AND SLIDERS
 
-- **`x-axis`**: Chooser for selecting which variable to plot on the x-axis of the logistic regression curve. Options include `Intercept`, `Average Minimum Temperature (°C)`, `Average Maximum Temperature (°C)`, and `Total Precipitation (mm)` (default: `Intercept`).
-- **`min-x`**: Slider for setting the minimum value of the x-axis in the logistic regression plot (default: `-235.0`).
-- **`max-x`**: Slider for setting the maximum value of the x-axis in the logistic regression plot (default: `-200.0`).
-- **`intercept`**: Slider for adjusting the intercept (β0) of the logistic regression model (default: `-222.5`).
-- **`inspection-tmin`**: Slider for adjusting the value of the *Average Minimum Temperature (°C)* variable used in the logistic regression model during inspection (default: `22.32`).
-- **`inspection-tmax`**: Slider for adjusting the value of the *Average Maximum Temperature (°C)* variable used in the logistic regression model during inspection (default: `31.22`).
-- **`inspection-prec`**: Slider for adjusting the value of the *Total Precipitation (mm)* variable used in the logistic regression model during inspection (default: `194.61`).
+- **`x-axis`** (`string`): Chooser for selecting which variable to plot on the x-axis of the logistic regression curve (e.g., `Intercept`).
+- **`min-x`** (`number`): Slider for setting the minimum value of the x-axis in the logistic regression plot.
+- **`max-x`** (`number`): Slider for setting the maximum value of the x-axis in the logistic regression plot.
+- **`intercept`** (`number`): Slider for adjusting the intercept (β0) of the logistic regression model.
+- **`inspection-tmin`** (`number`): Slider for adjusting the value of the *Average Minimum Temperature (°C)* variable used in the logistic regression model during inspection.
+- **`inspection-tmax`** (`number`): Slider for adjusting the value of the *Average Maximum Temperature (°C)* variable used in the logistic regression model during inspection.
+- **`inspection-prec`** (`number`): Slider for adjusting the value of the *Total Precipitation (mm)* variable used in the logistic regression model during inspection.
 
 ## THINGS TO NOTICE
 
@@ -687,10 +687,6 @@ Before opening a new issue, please check the [issues tab](https://github.com/sus
 - Support: <https://github.com/sponsors/danielvartan>
 
 ## HOW TO CITE
-
-> When using WorldClim data, you must also cite the original data sources.
->
-> The appropriate citation depends on the specific dataset utilized. Please refer to the [WorldClim website](https://www.worldclim.org/data/index.html#citation) for up-to-date citation guidelines and dataset references.
 
 To cite `Logônia` please use the following format:
 
