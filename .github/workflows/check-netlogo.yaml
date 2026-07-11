@@ -1,8 +1,7 @@
 on:
   push:
-    branches: main
-    # paths:
-      # - nlogox/**
+    paths:
+      - nlogox/**
 
 name: check-netlogo.yaml
 permissions: read-all
