@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - Automated unit tests covering most supported configurations using the [`check-netlogo`](https://github.com/danielvartan/netlogo-actions) action from the [`LogoActions`](https://github.com/danielvartan/logoactions) project. Tests run on Windows, macOS, and Linux with the latest NetLogo release at each commit.
+- [`renv`](https://rstudio.github.io/renv/) to manage R dependencies for the Quarto notebooks.
 
 ### Changed
 
