@@ -1,8 +1,8 @@
 ; extensions [ls]
 
 ; globals [
-;   tmax-ls-model
 ;   tmin-ls-model
+;   tmax-ls-model
 ;   prec-ls-model
 ; ]
 

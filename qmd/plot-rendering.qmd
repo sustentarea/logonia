@@ -1,0 +1,172 @@
+# Logônia Plot Rendering
+
+```{r}
+#| label: Setup
+#| include: false
+
+library(here)
+
+here("R", ".setup.R") |> source()
+```
+
+## Overview
+
+This document provides a step-by-step guide to render the plots used in the  [Logônia](https://github.com/sustentarea/logonia) model documentation.
+
+## Methods
+
+### Source of Data
+
+Data used in this notebook come from the following sources:
+
+- [WorldClim](https://www.worldclim.org/)
+  - [Historical Monthly Weather Data](https://www.worldclim.org/data/monthlywth.html) series, including 12 monthly data points for each year from 1951 to 2024. Based on [downscaled](https://worldclim.org/data/downscaling.html) data from [CRU-TS-4.09](https://crudata.uea.ac.uk/cru/data/hrg/cru_ts_4.09/) (Harris et al., [2020](https://doi.org/10.1038/s41597-020-0453-3)), developed by the [Climatic Research Unit](https://www.uea.ac.uk/groups-and-centres/climatic-research-unit) at the [University of East Anglia](https://www.uea.ac.uk/). It provides monthly averages for minimum temperature, maximum temperature, and total precipitation.
+- [GADM](https://gadm.org/): Database of Global Administrative Areas
+  - Data on administrative boundaries and regions, utilized for plotting country boundaries and cropping raster datasets.
+
+### Data Munging
+
+The data munging follows the data science workflow outlined by Wickham et al. ([2023](https://r4ds.hadley.nz/)). All processes were made using the [Quarto](https://quarto.org/) publishing system, the [R](https://www.r-project.org/) programming language, and several R packages.
+
+For data manipulation and workflow, priority was given to packages from the [Tidyverse](https://www.tidyverse.org/), [rOpenSci](https://ropensci.org/) and [rspatial](https://rspatial.org/) frameworks, as well as other packages adhering to the [tidy tools manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html).
+
+### Code Style
+
+The Tidyverse [tidy tools manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html), [code style guide](https://style.tidyverse.org/) and [design principles](https://design.tidyverse.org/) were followed to ensure consistency and enhance readability.
+
+### Reproducibility
+
+The pipeline is fully reproducible and can be run again at any time. To ensure consistent results, the [`renv`](https://rstudio.github.io/renv/) package was used to manage and restore the R environment.
+
+## Set Environment
+
+```{r}
+#| label: Set Environment
+#| include: false
+
+library(cli)
+library(httr2)
+
+if (!is_online()) {
+  cli_abort(
+    paste0(
+      "No {.strong {col_red('internet connection')}} detected. ",
+      "Please check your connection and try again."
+    )
+  )
+}
+```
+
+### Load Packages
+
+```{r}
+#| code-fold: false
+#| output: false
+
+library(brandr)
+library(checkmate)
+library(cli)
+library(dplyr)
+library(fs)
+library(geodata)
+library(ggplot2)
+library(glue)
+library(here)
+library(httr2)
+library(magick)
+library(orbis) # github.com/sustentarea/orbis
+library(patchwork)
+library(ragg)
+library(stringr)
+library(terra)
+```
+
+### Set Data Directories
+
+```{r}
+images_dir <- here("images")
+```
+
+```{r}
+if (!dir_exists(images_dir)) {
+  dir_create(images_dir, recurse = TRUE)
+}
+```
+
+## Plot Sigmoid
+
+### Load Custom Functions
+
+::: {.callout-note}
+The source code for the functions below can be found in the [R directory](https://github.com/sustentarea/logonia/tree/main/R) of the code repository.
+:::
+
+```{r}
+here("R", "plot_sigmoid.R") |> source()
+```
+
+### Plot Sigmoid
+
+```{r}
+plot_sigmoid(
+  intercept_range = seq(-235, -197.5, by = 1),
+  coefficients = c(tmin = 0.35, tmax = 0.45, prec = 1),
+  values = c(tmin = 22.32, tmax = 31.22, prec = 194.61),
+  text_size = 8,
+  width = 600,
+  height = 400,
+  file_name = images_dir |> file.path("logistic-regression-sigmoid.png")
+)
+```
+
+## Plot Animated Data
+
+### Plot Animation 1
+
+#### Load Custom Functions
+
+::: {.callout-note}
+The source code for the functions below can be found in the [R directory](https://github.com/sustentarea/logonia/tree/main/R) of the code repository.
+:::
+
+```{r}
+here("R", "plot_animated_data.R") |> source()
+```
+
+#### Plot Animation
+
+```{r}
+plot_animated_data(
+  year = 1951,
+  months = 3,
+  text_size = 18,
+  width = 1000,
+  height = 300,
+  file_name = images_dir |> file.path("worldclim-animation.gif")
+)
+```
+
+### Plot Animation 2
+
+#### Load Custom Functions
+
+::: {.callout-note}
+The source code for the functions below can be found in the [R directory](https://github.com/sustentarea/logonia/tree/main/R) of the code repository.
+:::
+
+```{r}
+here("R", "plot_animated_data-2.R") |> source()
+```
+
+#### Plot Animation
+
+```{r}
+plot_animated_data(
+  year = 1951,
+  months = 3,
+  text_size = 18,
+  width = 1000,
+  height = 300,
+  file_name = images_dir |> file.path("worldclim-animation-2.gif")
+)
+```

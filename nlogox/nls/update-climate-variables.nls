@@ -1,3 +1,5 @@
+; globals [patch-coordinates]
+
 ; patches-own [
 ;   tmin
 ;   tmin-12

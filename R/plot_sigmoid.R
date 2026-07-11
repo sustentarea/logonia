@@ -1,9 +1,6 @@
 library(here)
-source(here("R", "_setup.R"))
 
-# # Helpers -----
-#
-# plot_sigmoid()
+source(here("R", ".setup.R"))
 
 library(checkmate)
 library(ggplot2)
@@ -51,12 +48,17 @@ plot_sigmoid <- function(
       y = "Probability",
       subtitle = glue(
         "Coefficients: ",
-        "tmin = {coefficients['tmin']}", ", ",
-        "tmax = {coefficients['tmax']}", ", ",
-        "prec = {coefficients['prec']}", "\n",
+        "tmin = {coefficients['tmin']}",
+        ", ",
+        "tmax = {coefficients['tmax']}",
+        ", ",
+        "prec = {coefficients['prec']}",
+        "\n",
         "Values: ",
-        "tmin = {values['tmin']}", ", ",
-        "tmax = {values['tmax']}", ", ",
+        "tmin = {values['tmin']}",
+        ", ",
+        "tmax = {values['tmax']}",
+        ", ",
         "prec = {values['prec']}",
       )
     ) +
@@ -89,5 +91,5 @@ logistic_regression <- function(intercept, coefficients, values) {
 
   linear_combination <- intercept + sum(values * coefficients)
 
-  1 / (1 + exp(- linear_combination))
+  1 / (1 + exp(-linear_combination))
 }

@@ -3,15 +3,15 @@
   "@type": "SoftwareSourceCode",
   "identifier": "Logônia",
   "dateCreated": "2025-09-02",
-  "applicationCategory": "Computational Model",
-  "applicationSubCategory": "Plant Growth Modeling",
-  "name": "Logônia: Plant Growth Response Model in NetLogo",
+  "applicationCategory": "Computational Models",
+  "applicationSubCategory": "Plant Growth Models",
+  "name": "Logônia: Plant growth response model in NetLogo",
   "author": [
     {
       "@type": "Person",
       "familyName": "Vartanian",
       "givenName": "Daniel",
-      "email": "daniel.azevedo@alumni.usp.br",
+      "email": "danielvartan@proton.me",
       "affiliation": {
         "@type": "Organization",
         "name": "University of São Paulo",
@@ -47,77 +47,75 @@
   "funder": [
     {
       "@type": "Organization",
-      "name": "Department of Science and Technology of the Secretariat of Science, Technology, and Innovation and of the Health Economic-Industrial Complex (SECTICS) of the Ministry of Health of Brazil",
-      "@id": "https://www.gov.br/saude/pt-br/composicao/sectics/"
+      "name": "National Council for Scientific and Technological Development (CNPq) of the Ministry of Science, Technology and Innovation (MCTI) of Brazil",
+      "@id": "https://www.gov.br/cnpq/"
     },
     {
       "@type": "Organization",
-      "name": "Conselho Nacional de Desenvolvimento Científico e Tecnológico - Brazil (CNPq)",
-      "@id": "https://www.gov.br/cnpq/"
+      "name": "Department of Science and Technology (DECIT) of the Secretariat of Science, Technology, Innovation and Strategic Health Inputs (SECTICS) of the Ministry of Health (MS) of Brazil",
+      "@id": "https://www.gov.br/saude/pt-br/composicao/sectics/decit/"
     }
   ],
-  "funding": "CNPq 444588/2023-0",
+  "funding": "CNPq/DECIT/SECTICS/MS No. 444588/2023-0",
   "provider": {
-    "@id": "https://www.fsp.usp.br/sustentarea/",
     "@type": "Organization",
-    "name": "Sustentarea",
+    "name": "Sustentarea Research and Extension Center",
     "url": "https://www.fsp.usp.br/sustentarea/"
   },
   "copyrightHolder": {
-    "@type": "Person",
-    "familyName": "Vartanian",
-    "givenName": "Daniel",
-    "email": "daniel.azevedo@alumni.usp.br",
-    "@id": "https://orcid.org/0000-0001-7782-759X"
+    "@type": "Organization",
+    "name": "Sustentarea Research and Extension Center",
+    "url": "https://www.fsp.usp.br/sustentarea/"
   },
   "maintainer": {
     "@type": "Person",
     "familyName": "Vartanian",
     "givenName": "Daniel",
-    "email": "daniel.azevedo@alumni.usp.br",
+    "email": "danielvartan@proton.me",
     "@id": "https://orcid.org/0000-0001-7782-759X"
   },
-  "description": "Logônia is a NetLogo model that simulates the growth response of a fictional plant, logônia, under different climatic conditions. The model uses climate data from WorldClim 2.1 and demonstrates how to integrate the LogoClim model through the LevelSpace extension.",
+  "description": "Logônia is a NetLogo model that simulates the growth response of a fictional plant, Logônia, under different climatic conditions. The model uses climate data from WorldClim 2.1 and demonstrates how to integrate the LogoClim model through the LevelSpace extension.",
   "keywords": [
-    "Agent-Based Modeling",
+    "Agent-Based Models",
+    "Plant Growth",
+    "WorldClim",
     "Climate Change",
-    "Climate Simulations",
+    "Reproducible Research",
+    "Raster Data",
+    "Historical Climate Data",
+    "NetLogo",
+    "LevelSpace",
     "Complex Systems",
     "Complexity Science",
-    "Environmental Sciences",
-    "Historical Climate Data",
-    "LevelSpace",
-    "LogoClim",
-    "NetLogo",
-    "Parallel Execution",
-    "Plant Growth",
-    "Population Dynamics",
     "Simulations",
-    "Spatial Analysis",
-    "Time Series",
-    "WorldClim"
+    "Climate Simulations",
+    "Environmental Sciences"
   ],
   "license": "https://www.gnu.org/licenses/gpl-3.0",
   "codeRepository": "https://github.com/sustentarea/logonia",
   "issueTracker": "https://github.com/sustentarea/logonia/issues",
-  "relatedLink": "https://doi.org/10.17605/OSF.IO/TPY7S",
-  "programmingLanguage": {
-    "@type": "ComputerLanguage",
-    "name": "NetLogo",
-    "version": "7.0.0",
-    "url": "https://www.netlogo.org"
-  },
-  "runtimePlatform": "NetLogo version 7.0.0 (2025)",
+  "relatedLink": [
+    "https://www.comses.net/codebases/4f2be13a-3957-4537-bf64-3fad96ba271f",
+    "https://doi.org/10.17605/OSF.IO/TPY7S",
+    "https://github.com/sponsors/danielvartan"
+  ],
+  "runtimePlatform": "NetLogo version 7.0.4",
   "operatingSystem": [
     "Linux",
     "macOS",
     "Windows"
   ],
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "NetLogo",
+    "version": "7.0.4",
+    "url": "https://www.netlogo.org"
+  },
   "softwareRequirements": [
     {
       "@type": "SoftwareApplication",
       "name": "NetLogo",
-      "version": ">= 7.0.0",
+      "version": ">= 7.0.4",
       "provider": {
         "@id": "https://www.netlogo.org",
         "@type": "Organization",
@@ -128,7 +126,7 @@
     },
     {
       "name": "NetLogo LevelSpace extension",
-      "version": ">= 2.4.2",
+      "version": ">= 2.4.4",
       "provider": {
         "@id": "https://www.netlogo.org",
         "@type": "Organization",
@@ -151,6 +149,6 @@
   ],
   "developmentStatus": "active",
   "readme": "https://github.com/sustentarea/logonia/blob/main/README.md",
-  "releaseNotes": "https://github.com/sustentarea/logonia/blob/main/NEWS.md",
+  "releaseNotes": "https://github.com/sustentarea/logoclim/blob/main/CHANGELOG.md",
   "version": "1.1.0.9000"
 }

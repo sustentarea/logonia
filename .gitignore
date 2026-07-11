@@ -1,6 +1,9 @@
+.Rapp.history
 .RData
+.Renviron
 .Rhistory
-.Rproj.user
 .Ruserdata
+**/*.quarto_ipynb
+/.data/
 /.quarto/
 /data-raw/

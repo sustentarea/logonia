@@ -1,0 +1,126 @@
+# Logônia Data Processing
+
+## Overview
+
+This document provides a step-by-step guide to download and process the [WorldClim 2.1](https://worldclim.org/) data **for the [Logônia](https://github.com/sustentarea/logonia) model**. For detailed instructions on how to download and process the data, please see the `LogoClim`'s [user manual](https://sustentarea.github.io/logoclim).
+
+## Methods
+
+### Source of Data
+
+Data used in this notebook come from the following sources:
+
+- [WorldClim](https://www.worldclim.org/)
+  - [Historical Monthly Weather Data](https://www.worldclim.org/data/monthlywth.html) series, including 12 monthly data points for each year from 1951 to 2024. Based on [downscaled](https://worldclim.org/data/downscaling.html) data from [CRU-TS-4.09](https://crudata.uea.ac.uk/cru/data/hrg/cru_ts_4.09/) (Harris et al., [2020](https://doi.org/10.1038/s41597-020-0453-3)), developed by the [Climatic Research Unit](https://www.uea.ac.uk/groups-and-centres/climatic-research-unit) at the [University of East Anglia](https://www.uea.ac.uk/). It provides monthly averages for minimum temperature, maximum temperature, and total precipitation.
+
+### Data Munging
+
+The data munging follows the data science workflow outlined by Wickham et al. ([2023](https://r4ds.hadley.nz/)). All processes were made using the [Quarto](https://quarto.org/) publishing system, the [R](https://www.r-project.org/) programming language, and several R packages.
+
+For data manipulation and workflow, priority was given to packages from the [Tidyverse](https://www.tidyverse.org/), [rOpenSci](https://ropensci.org/) and [rspatial](https://rspatial.org/) frameworks, as well as other packages adhering to the [tidy tools manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html).
+
+### Code Style
+
+The Tidyverse [tidy tools manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html), [code style guide](https://style.tidyverse.org/) and [design principles](https://design.tidyverse.org/) were followed to ensure consistency and enhance readability.
+
+### Reproducibility
+
+The pipeline is fully reproducible and can be run again at any time. To ensure consistent results, the [`renv`](https://rstudio.github.io/renv/) package was used to manage and restore the R environment.
+
+## Set Environment
+
+```{r}
+#| label: Set Environment
+#| include: false
+
+library(cli)
+library(httr2)
+
+if (!is_online()) {
+  cli_abort(
+    paste0(
+      "No {.strong {col_red('internet connection')}} detected. ",
+      "Please check your connection and try again."
+    )
+  )
+}
+```
+
+### Load Packages
+
+```{r}
+#| code-fold: false
+#| output: false
+
+library(cli)
+library(fs)
+library(here)
+library(httr2)
+library(orbis) # github.com/sustentarea/orbis
+```
+
+### Set Data Directories
+
+```{r}
+data_dir <- here("data")
+```
+
+```{r}
+if (!dir_exists(data_dir)) {
+  dir_create(data_dir, recurse = TRUE)
+}
+```
+
+### Set Parameters
+
+:::{.callout-note}
+The `box` variable defines the bounding box for the area of interest. It is specified in the format: `c(xmin, xmax, ymin, ymax)`. The coordinates are in decimal degrees (WGS84).
+
+You can visualize the bounding box [here](http://bboxfinder.com/#-7.5,-63.5,0,-55).
+:::
+
+```{r}
+box <- c(-63.5, -55, -7.5, 0)
+```
+
+::: {.callout-note}
+Setting `ZIP_PROGRESS` environment variable is required by the [`zip`](https://r-lib.github.io/zip/) R package to display progress bars when unzipping data.
+:::
+
+```{r}
+Sys.setenv(ZIP_PROGRESS = "true")
+```
+
+## Download Data
+
+:::{.callout-note}
+Keep in mind that the data can take up quite a bit of storage space. Make sure you have enough room before downloading.
+:::
+
+```{r}
+files <- worldclim_download(
+  series = "historical-monthly-weather-data",
+  resolution = "10m",
+  dir = data_dir
+)
+```
+
+## Process Data
+
+```{r}
+files |> worldclim_to_ascii(box = box)
+```
+
+## Delete Non-ASCII Files
+
+```{r}
+files |>
+  head(1) |>
+  dirname() |>
+  dir_ls(
+    type = "file",
+    regexp = "asc$|md$",
+    invert = TRUE
+  ) |>
+  file_delete()
+```

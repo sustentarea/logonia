@@ -12,9 +12,8 @@
 *.nlogox3d linguist-language=NetLogo
 *.qmd linguist-language=R
 
-images/* linguist-documentation
-paper/* linguist-documentation
-ttf/* linguist-documentation
+fonts/** linguist-documentation
+images/** linguist-documentation
 
-data/* linguist-generated
-data-raw/* linguist-generated
+.vscode/* linguist-generated
+data/** linguist-generated

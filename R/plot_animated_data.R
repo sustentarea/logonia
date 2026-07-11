@@ -1,9 +1,6 @@
 library(here)
-source(here("R", "_setup.R"))
 
-# # Helpers -----
-#
-# plot_animated_data()
+source(here("R", ".setup.R"))
 
 library(checkmate)
 library(cli)
@@ -13,13 +10,13 @@ library(magick)
 library(ragg)
 
 plot_animated_data <- function(
-    year = 1951,
-    months = 3,
-    text_size = 18,
-    width = 1000,
-    height = 300,
-    file_name = here("images", "worldclim-animation.gif")
-  ) {
+  year = 1951,
+  months = 3,
+  text_size = 18,
+  width = 1000,
+  height = 300,
+  file_name = here("images", "worldclim-animation.gif")
+) {
   assert_number(year, lower = 1951, upper = 2024)
   assert_number(months, lower = 1, upper = 12)
   assert_number(text_size, lower = 1)
@@ -103,8 +100,10 @@ plot_data <- function(year = 1951, month = 1, text_size = 8) {
       "historical-monthly-weather-data",
       paste0(
         "wc2.1_cruts4.09_10m_",
-        i, "_",
-        year, "-",
+        i,
+        "_",
+        year,
+        "-",
         month,
         ".asc"
       )
@@ -190,11 +189,11 @@ plot_worldclim <- function(raster, var = "tmin", title = "A", text_size = 8) {
   assert_string(title)
   assert_number(text_size, lower = 1)
 
-  color <- case_match(
+  color <- recode_values(
     var,
     "tmin" ~ get_brand_color("lime"),
     "tmax" ~ get_brand_color("olive-brown"),
-    "prec" ~get_brand_color("brown")
+    "prec" ~ get_brand_color("brown")
   )
 
   ggplot() +
