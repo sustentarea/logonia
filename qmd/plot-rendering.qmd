@@ -66,6 +66,7 @@ if (!is_online()) {
 library(brandr)
 library(checkmate)
 library(cli)
+library(colorspace)
 library(dplyr)
 library(fs)
 library(geodata)

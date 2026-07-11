@@ -185,7 +185,7 @@ plot_worldclim <- function(raster, var = "tmin", title = "A", text_size = 8) {
   assert_string(title)
   assert_number(text_size, lower = 1)
 
-  color <- case_match(
+  color <- recode_values(
     var,
     "tmin" ~ get_brand_color("lime"),
     "tmax" ~ get_brand_color("olive-brown"),

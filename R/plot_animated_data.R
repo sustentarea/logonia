@@ -136,6 +136,7 @@ plot_data <- function(year = 1951, month = 1, text_size = 8) {
 }
 
 library(checkmate)
+library(colorspace)
 library(ggplot2)
 library(stringr)
 library(terra)
@@ -155,14 +156,14 @@ plot_brazil <- function(
   ggplot() +
     geom_spatvector(
       data = brazil_shape,
-      color = get_brand_color("gray"),
+      color = get_brand_color("black"),
+      fill = get_brand_color("gray") |> lighten(amount = 0.5),
     ) +
     geom_spatvector(
       data = logonia_box_shape,
       color = get_brand_color("brown"),
-      # fill = get_brand_color("brown"),
-      linewidth = 0.5,
-      alpha = 0.75
+      fill = NA,
+      linewidth = 0.5
     ) +
     labs(title = title) +
     theme_void() +

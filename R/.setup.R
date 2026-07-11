@@ -54,9 +54,18 @@ theme_set(
         family = "poppins",
         face = "plain"
       ),
+      panel.background = element_rect(fill = "transparent"),
+      plot.background = element_rect(
+        fill = "transparent",
+        color = NA
+      ),
       panel.grid.major = element_blank(),
       panel.grid.minor = element_blank(),
-      legend.frame = element_blank(),
-      legend.ticks = element_line(color = "white")
+      legend.background = element_rect(fill = "transparent"),
+      legend.box.background = element_rect(
+        fill = "transparent",
+        color = NA
+      ),
+      legend.frame = element_blank()
     )
 )
