@@ -2,6 +2,7 @@ on:
   push:
     paths:
       - nlogox/**
+      - .github/workflows/check-netlogo.yaml
 
 name: check-netlogo.yaml
 permissions: read-all
@@ -9,15 +10,17 @@ permissions: read-all
 jobs:
   check-netlogo:
     if: "!contains(github.event.head_commit.message, '[skip check-netlogo]')"
-    strategy:
-      fail-fast: false
-      matrix:
-        config:
-          - {os: windows-latest, version: 'release'}
-          - {os: macos-latest, version: 'release'}
-          - {os: ubuntu-latest, version: 'release'}
-    name: "${{ matrix.config.os }} (${{ matrix.config.version }})"
-    runs-on: ${{ matrix.config.os }}
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     config:
+    #       - {os: windows-latest, version: 'release'}
+    #       - {os: macos-latest, version: 'release'}
+    #       - {os: ubuntu-latest, version: 'release'}
+    # name: "${{ matrix.config.os }} (${{ matrix.config.version }})"
+    # runs-on: ${{ matrix.config.os }}
+    name: "Run Experiments"
+    runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     permissions: read-all

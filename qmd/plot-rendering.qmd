@@ -103,6 +103,8 @@ The source code for the functions below can be found in the [R directory](https:
 :::
 
 ```{r}
+#| label: Plot Sigmoid
+
 here("R", "plot_sigmoid.R") |> source()
 ```
 
@@ -131,6 +133,8 @@ The source code for the functions below can be found in the [R directory](https:
 :::
 
 ```{r}
+#| label: Plot Animated Data
+
 here("R", "plot_animated_data.R") |> source()
 ```
 

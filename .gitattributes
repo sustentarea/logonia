@@ -15,5 +15,7 @@
 fonts/** linguist-documentation
 images/** linguist-documentation
 
-.vscode/* linguist-generated
+.vscode/** linguist-generated
 data/** linguist-generated
+
+nlogox/string/** linguist-vendored
