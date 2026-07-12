@@ -10,17 +10,15 @@ permissions: read-all
 jobs:
   check-netlogo:
     if: "!contains(github.event.head_commit.message, '[skip check-netlogo]')"
-    # strategy:
-    #   fail-fast: false
-    #   matrix:
-    #     config:
-    #       - {os: windows-latest, version: 'release'}
-    #       - {os: macos-latest, version: 'release'}
-    #       - {os: ubuntu-latest, version: 'release'}
-    # name: "${{ matrix.config.os }} (${{ matrix.config.version }})"
-    # runs-on: ${{ matrix.config.os }}
-    name: "Run Experiments"
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: windows-latest, version: 'release'}
+          - {os: macos-latest, version: 'release'}
+          - {os: ubuntu-latest, version: 'release'}
+    name: "${{ matrix.config.os }} (${{ matrix.config.version }})"
+    runs-on: ${{ matrix.config.os }}
     timeout-minutes: 30
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -34,8 +32,10 @@ jobs:
       - name: Set up NetLogo
         uses: danielvartan/netlogo-actions/setup-netlogo@v1
         with:
-          version: 'release'
+          version: ${{ matrix.config.version }}
           cache: 'true'
 
       - name: Check NetLogo models
         uses: danielvartan/netlogo-actions/check-netlogo@v1
+        with:
+          ignore: 'logoclim/**'
