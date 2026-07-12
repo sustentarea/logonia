@@ -2,7 +2,7 @@
 <model version="NetLogo 7.0.4" snapToGrid="true">
   <code><![CDATA[; Logônia: Plant growth response model in NetLogo
 ;
-; Version: v1.1.0.9000 (development version)
+; Version: v1.2.0.9000 (development version)
 ; Authors: Daniel Vartanian, Leandro Garcia, & Aline M. de Carvalho
 ; Maintainer: Daniel Vartanian <https://github.com/danielvartan>
 ; License: GPLv3 <https://www.gnu.org/licenses/gpl-3.0>
@@ -49,7 +49,6 @@ globals [
   tmax-ls-model ; LogoClim
   prec-ls-model ; LogoClim
   patch-coordinates ; LogoClim
-  headless? ; LogoClim
   settings ; LogoClim
 ]
 
@@ -77,14 +76,8 @@ logonias-own [
   energy
 ]
 
-to setup [#headless?]
+to setup
   clear-all
-
-  ifelse (#headless?) [
-    set headless? true
-  ] [
-    set headless? false
-  ]
 
   assert-start-year ; LogoClim
 
@@ -99,7 +92,7 @@ to setup [#headless?]
   setup-variables ; LogoClim
   setup-patches ; LogoClim
 
-  if ((inspect-var? = true) and (not headless?)) [ ; LogoClim
+  if ((inspect-var? = true)) [ ; LogoClim
     inspect-climate-variables
   ]
 
@@ -162,9 +155,7 @@ to setup [#headless?]
     ]
   ]
 
-  if (not headless?) [
-    plot-sigmoid
-  ]
+  plot-sigmoid
 
   reset-ticks
 end
@@ -182,7 +173,7 @@ to go
 
   set max-plot-x ceiling ((ticks + 1) * 1.25)
 
-  ifelse ((inspect-var? = true) and (not headless?)) [ ; LogoClim
+  ifelse ((inspect-var? = true)) [ ; LogoClim
     inspect-climate-variables
   ] [
     ask logonias [show-turtle]
@@ -290,7 +281,7 @@ to colorize
 end]]></code>
   <widgets>
     <view x="270" wrappingAllowedX="true" y="10" frameRate="30.0" minPycor="-22" height="552" showTickCounter="true" patchSize="12.274509803922157" fontSize="14" wrappingAllowedY="true" width="626" tickCounterLabel="Months" maxPycor="22" updateMode="0" maxPxcor="25" minPxcor="-25"></view>
-    <button x="10" actionKey="S" y="10" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="125" display="Setup">setup false</button>
+    <button x="10" actionKey="S" y="10" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="125" display="Setup">setup</button>
     <button x="140" actionKey="G" y="10" height="40" disableUntilTicks="false" forever="true" kind="Observer" width="120" display="Go">go</button>
     <chooser x="10" y="55" height="60" variable="start-month" current="0" width="250" display="start-month">
       <choice type="string" value="January"></choice>
@@ -922,7 +913,7 @@ Vartanian, D., Garcia, L., & Carvalho, A. M. (2026). *LogoClim: WorldClim in Net
   <previewCommands>setup repeat 75 [ go ]</previewCommands>
   <experiments>
     <experiment name="NetLogo Check (default values)" repetitions="1" sequentialRunOrder="true" runMetricsEveryStep="true">
-      <setup>setup true</setup>
+      <setup>setup</setup>
       <go>go</go>
       <metrics>
         <metric>count logonias with [shape = "seedling"]</metric>

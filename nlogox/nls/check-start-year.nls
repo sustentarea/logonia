@@ -35,10 +35,7 @@ end
 
 to assert-start-year
   if (not test-start-year) [
-    if (not headless?) [
-      user-message check-start-year
-    ]
-
+    user-message check-start-year
     error check-start-year
   ]
 end
