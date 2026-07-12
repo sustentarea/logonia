@@ -49,6 +49,7 @@ globals [
   tmax-ls-model ; LogoClim
   prec-ls-model ; LogoClim
   patch-coordinates ; LogoClim
+  headless? ; LogoClim
   settings ; LogoClim
 ]
 
@@ -76,12 +77,20 @@ logonias-own [
   energy
 ]
 
-to setup
+to setup [#headless?]
   clear-all
+
+  ifelse (#headless?) [
+    set headless? true
+  ] [
+    set headless? false
+  ]
 
   assert-start-year ; LogoClim
 
-  if (test-start-year = false) [stop] ; LogoClim
+  if (test-start-year = false) [ ; LogoClim
+    stop
+  ]
 
   ls:reset ; LogoClim
 
@@ -90,7 +99,7 @@ to setup
   setup-variables ; LogoClim
   setup-patches ; LogoClim
 
-  if (inspect-var? = true) [ ; LogoClim
+  if ((inspect-var? = true) and (not headless?)) [ ; LogoClim
     inspect-climate-variables
   ]
 
@@ -134,7 +143,10 @@ to setup
 
     colorize
 
-    ask patch-here [set ever-occupied? true]
+    ask patch-here [
+      set ever-occupied? true
+    ]
+
     set ycor ycor + 1
   ]
 
@@ -150,7 +162,9 @@ to setup
     ]
   ]
 
-  plot-sigmoid
+  if (not headless?) [
+    plot-sigmoid
+  ]
 
   reset-ticks
 end
@@ -168,7 +182,7 @@ to go
 
   set max-plot-x ceiling ((ticks + 1) * 1.25)
 
-  ifelse (inspect-var? = true) [ ; LogoClim
+  ifelse ((inspect-var? = true) and (not headless?)) [ ; LogoClim
     inspect-climate-variables
   ] [
     ask logonias [show-turtle]
@@ -183,7 +197,9 @@ to go
     reproduce
     senesce
 
-    if ((energy <= 0) or (age >= 100)) [die]
+    if ((energy <= 0) or (age >= 100)) [
+      die
+    ]
   ]
 
   if (inspect-var? = false) [
@@ -198,7 +214,9 @@ to go
 
   update-moving-average
 
-  if (not any? logonias) [stop]
+  if (not any? logonias) [
+    stop
+  ]
 
   tick
 end
@@ -272,7 +290,7 @@ to colorize
 end]]></code>
   <widgets>
     <view x="270" wrappingAllowedX="true" y="10" frameRate="30.0" minPycor="-22" height="552" showTickCounter="true" patchSize="12.274509803922157" fontSize="14" wrappingAllowedY="true" width="626" tickCounterLabel="Months" maxPycor="22" updateMode="0" maxPxcor="25" minPxcor="-25"></view>
-    <button x="10" actionKey="S" y="10" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="125" display="Setup">setup</button>
+    <button x="10" actionKey="S" y="10" height="40" disableUntilTicks="false" forever="false" kind="Observer" width="125" display="Setup">setup false</button>
     <button x="140" actionKey="G" y="10" height="40" disableUntilTicks="false" forever="true" kind="Observer" width="120" display="Go">go</button>
     <chooser x="10" y="55" height="60" variable="start-month" current="0" width="250" display="start-month">
       <choice type="string" value="January"></choice>
@@ -904,7 +922,7 @@ Vartanian, D., Garcia, L., & Carvalho, A. M. (2026). *LogoClim: WorldClim in Net
   <previewCommands>setup repeat 75 [ go ]</previewCommands>
   <experiments>
     <experiment name="NetLogo Check (default values)" repetitions="1" sequentialRunOrder="true" runMetricsEveryStep="true">
-      <setup>setup</setup>
+      <setup>setup true</setup>
       <go>go</go>
       <metrics>
         <metric>count logonias with [shape = "seedling"]</metric>

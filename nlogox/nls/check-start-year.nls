@@ -5,10 +5,10 @@ to-report test-start-year
   if (is-string? start-year) [
     set start-year read-from-string start-year
   ]
-  
+
   ifelse (
     (string:rex-match? "^[0-9]{4}.*" (word start-year)) and
-    (start-year >= 1951) and 
+    (start-year >= 1951) and
     (start-year <= 2024)
   ) [
     report true
@@ -20,7 +20,7 @@ end
 to-report check-start-year
   ifelse (test-start-year) [
     report true
-  ] [   
+  ] [
     (ifelse (not string:rex-match? "^[0-9]{4}.*" (word start-year)) [
       report "The year must have 4 digits."
     ] [
@@ -35,6 +35,10 @@ end
 
 to assert-start-year
   if (not test-start-year) [
-    user-message check-start-year
+    if (not headless?) [
+      user-message check-start-year
+    ]
+
+    error check-start-year
   ]
 end
