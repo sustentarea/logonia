@@ -1,0 +1,199 @@
+# Logônia `logolink` Run
+
+```{r}
+#| label: Setup
+#| include: false
+
+library(here)
+
+here("R", ".setup.R") |> source()
+```
+
+## Overview
+
+This document provides a step-by-step guide to run [Logônia](https://github.com/sustentarea/logonia) using the [`logolink`](https://danielvartan.github.io/logolink) R package.
+
+## Methods
+
+### Data Munging
+
+The data munging follows the data science workflow outlined by Wickham et al. ([2023](https://r4ds.hadley.nz/)). All processes were made using the [Quarto](https://quarto.org/) publishing system, the [R](https://www.r-project.org/) programming language, and several R packages.
+
+For data manipulation and workflow, priority was given to packages from the [Tidyverse](https://www.tidyverse.org/) and [rOpenSci](https://ropensci.org/), as well as other packages adhering to the [tidy tools manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html).
+
+### Code Style
+
+The Tidyverse [tidy tools manifesto](https://tidyverse.tidyverse.org/articles/manifesto.html), [code style guide](https://style.tidyverse.org/) and [design principles](https://design.tidyverse.org/) were followed to ensure consistency and enhance readability.
+
+### Reproducibility
+
+The pipeline is fully reproducible and can be run again at any time. To ensure consistent results, the [`renv`](https://rstudio.github.io/renv/) package was used to manage and restore the R environment.
+
+## Set Environment
+
+### Load Packages
+
+```{r}
+#| label: Set Environment
+#| code-fold: false
+#| output: false
+
+library(brandr)
+library(dplyr)
+library(ggplot2)
+library(here)
+library(janitor)
+library(logolink)
+library(lubridate)
+library(ragg)
+library(tidyr)
+library(tsibble)
+```
+
+### Set Paths
+
+```{r}
+model_path <- here("nlogox", "logonia.nlogox")
+```
+
+## Run NetLogo Check Experiment
+
+```{r}
+#| label: Run NetLogo Check Experiment
+
+results <-
+  model_path |>
+  run_experiment(
+    experiment = "NetLogo Check (default values)"
+  )
+```
+
+```{r}
+results |> glimpse()
+```
+
+## Analyze Data
+
+### Prepare Data
+
+```{r}
+#| label: Analyze the Data
+
+data <-
+  results |>
+  extract2("table") |>
+  clean_names() |>
+  mutate(
+    month = start_month |>
+      recode_values(
+        "January" ~ 1L,
+        "February" ~ 2L,
+        "March" ~ 3L,
+        "April" ~ 4L,
+        "May" ~ 5L,
+        "June" ~ 6L,
+        "July" ~ 7L,
+        "August" ~ 8L,
+        "September" ~ 9L,
+        "October" ~ 10L,
+        "November" ~ 11L,
+        "December" ~ 12L,
+        default = NA_integer_
+      ) |>
+      add(step) |>
+      magrittr::mod(12) %>%
+      if_else(. == 0L, 12L, .),
+    year = start_year |>
+      as.integer() %>%
+      add(cumsum(month == 1L) - (first(month) == 1L)),
+    year_month = make_yearmonth(year, month),
+    across(
+      .cols = starts_with("mean_"),
+      .fns = ~ if_else(year == start_year, NA_real_, .x)
+    )
+  ) |>
+  select(
+    year_month,
+    Seedling = count_logonias_with_shape_seedling,
+    `Seedling 12 MA` = mean_seedling_12,
+    Juvenile = count_logonias_with_shape_juvenile,
+    `Juvenile 12 MA` = mean_juvenile_12,
+    Adult = count_logonias_with_shape_adult,
+    `Adult 12 MA` = mean_adult_12
+  ) |>
+  pivot_longer(
+    cols = c(
+      Seedling,
+      `Seedling 12 MA`,
+      Juvenile,
+      `Juvenile 12 MA`,
+      Adult,
+      `Adult 12 MA`
+    ),
+    names_to = "type",
+    values_to = "value"
+  ) |>
+  mutate(
+    type = type |>
+      factor(
+        levels = c(
+          "Seedling",
+          "Seedling 12 MA",
+          "Juvenile",
+          "Juvenile 12 MA",
+          "Adult",
+          "Adult 12 MA"
+        )
+      )
+  ) |>
+  tsibble(
+    index = year_month,
+    key = type
+  )
+```
+
+```{r}
+data |> glimpse()
+```
+
+### Plot Time Series
+
+```{r}
+#| warning: false
+
+data |>
+  ggplot(
+    aes(x = year_month, y = value, color = type)
+  ) +
+  geom_line() +
+  scale_color_manual(
+    values = c(
+      "Seedling" = "#d5f6d8",
+      "Seedling 12 MA" = "#2cd13b",
+      "Juvenile" = "#f7f7ad",
+      "Juvenile 12 MA" = "#92921d",
+      "Adult" = "#ebe2da",
+      "Adult 12 MA" = "#9d6e48"
+    )
+  ) +
+  scale_x_yearmonth(
+    breaks = data |>
+      pull(year_month) |>
+      unique() |>
+      as.Date() %>%
+      if_else(
+        month(.) == 1,
+        .,
+        NA
+      ) |>
+      na.omit() %>%
+      magrittr::extract(seq(1, length(.), by = 10L)) |>
+      year() |>
+      make_yearmonth(1L)
+  ) +
+  labs(
+    x = "Year-Month",
+    y = "Frequency",
+    color = NULL
+  )
+```
