@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![CoMSES Network badge](https://img.shields.io/badge/CoMSES%20Network-1.1.0-1284C5.svg)](https://www.comses.net/codebases/4f2be13a-3957-4537-bf64-3fad96ba271f/)
+[![CoMSES Network badge](https://img.shields.io/badge/CoMSES%20Network-1.2.0-1284C5.svg)](https://www.comses.net/codebases/4f2be13a-3957-4537-bf64-3fad96ba271f/)
 [![Check NetLogo workflow badge](https://github.com/sustentarea/logonia/workflows/check-netlogo.yaml/badge.svg)](https://github.com/sustentarea/logonia/actions)
 [![FAIR checklist badge](https://img.shields.io/badge/fairsoftwarechecklist.net--00a7d9)](https://fairsoftwarechecklist.net/v0.2?f=31&a=30113&i=32300&r=123)
 [![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green)](https://fair-software.eu)
@@ -24,7 +24,7 @@
 
 `Logônia` runs on a grid of patches, where each patch represents a piece of soil that can host a plant. Patches correspond to a specific geographic area and store historical climate data.
 
-Each simulation step represents *one month*. Over time, plants *grow*, *reproduce*, and *age*. These processes are controlled by sliders in the model's interface. Climate conditions directly influence growth probability, adding realism and complexity to the simulation.
+Each simulation step represents *one month*. Over time, plants *grow*, *reproduce*, and *age*. These processes are controlled by sliders in the model interface. Climate conditions directly influence growth probability, adding realism and complexity to the simulation.
 
 <p align="center">
   <img src="images/logonia-evolution.svg" height=125px />
@@ -32,7 +32,7 @@ Each simulation step represents *one month*. Over time, plants *grow*, *reproduc
 
 ### Climate Data
 
-The model uses *Historical Monthly Weather Data* from [WorldClim 2.1](https://worldclim.org/) ([Fick & Hijmans, 2017](https://doi.org/10.1002/joc.5086)) for a region of the **Brazilian Amazon Forest**.
+The model uses *Historical Monthly Weather Data* from [WorldClim 2.1](https://worldclim.org/) for a region of the **Brazilian Amazon Forest**.
 
 This dataset provides 12 monthly values per year for 1951-2024, based on [downscaled](https://worldclim.org/data/downscaling.html) data from [CRU-TS-4.09](https://crudata.uea.ac.uk/cru/data/hrg/cru_ts_4.09/), developed by the [Climatic Research Unit](https://www.uea.ac.uk/groups-and-centres/climatic-research-unit) at the [University of East Anglia](https://www.uea.ac.uk/) ([Harris et al., 2020](https://doi.org/10.1038/s41597-020-0453-3)). The variables are: (**A**) *Average Minimum Temperature (°C)*, (**B**) *Average Maximum Temperature (°C)*, and (**C**) *Total Precipitation (mm)*.
 
@@ -40,7 +40,7 @@ This dataset provides 12 monthly values per year for 1951-2024, based on [downsc
   <img src="images/worldclim-animation.gif" height=150px />
 </p>
 
-The dataset can be reproduced using a [Quarto](https://quarto.org/) notebook in the `qmd` folder of the model repository.
+The dataset can be reproduced using a [Quarto](https://quarto.org/) notebook in the `qmd` folder of the model code repository.
 
 ### Energy and Growth Probability
 
@@ -93,19 +93,21 @@ Plants age by `1` month per step. Age is shown by color, fading from lime to bro
 
 > Click [here](https://youtube.com/playlist?list=PL1CZfe9j9vWFY1U0YCzdVvGFDEFzf2NO4&si=fxaLGQnBcx180eNL) to see a showcase of the model.
 
-### Setup
-
-To get started, ensure you have [NetLogo](https://www.netlogo.org) installed. This model was developed with NetLogo 7.0.4. Use this version or newer for best compatibility.
+To get started using `Logônia`, you must have [NetLogo](https://www.netlogo.org) installed. The model was developed with NetLogo 7.0.4. Use this version or newer for best compatibility. The NetLogo [website](https://www.netlogo.org) provides easy installers for Windows, macOS, and Linux, along with detailed instructions for installation.
 
 The model relies on the NetLogo extensions [`LevelSpace`](https://ccl.northwestern.edu/netlogo/docs/ls.html) and [`String`](https://github.com/NetLogo/String-Extension). These extensions are installed automatically when the model is run for the first time.
 
-### Downloading the Model
+With NetLogo ready, follow these steps to get `Logônia` up and running.
 
-You can download the latest release of the model from its [GitHub releases page](https://github.com/sustentarea/logonia/releases/latest). For the development version, you can clone or download this GitHub repository directly.
+### A. Download the Model
 
-### Running the Model
+You can download the latest release of the model from the [CoMSES Network](https://www.comses.net/codebases/4f2be13a-3957-4537-bf64-3fad96ba271f/). This is the recommended option for most users, as it provides a stable version of the model that has been tested and documented.
 
-Once everything is ready, open the `logonia.nlogox` file located in the `nlogox` folder, click **`Setup`** and then **`Go`** to start. No extra installation steps are needed.
+For the development version, you can clone or download the model [GitHub code repository](https://github.com/sustentarea/logonia/) directly.
+
+### B. Run the Model
+
+Once everything is set, click on the **`Setup`** and then **`Go`** buttons to start the simulation.
 
 Refer to the `Info` tab in the model for additional details.
 
@@ -113,7 +115,7 @@ Refer to the `Info` tab in the model for additional details.
 
 [![](https://img.shields.io/badge/Contributor%20Covenant-3.0-4baaaa.svg)](https://www.contributor-covenant.org/version/3/0/code_of_conduct/)
 
-Contributions are always welcome, whether that's reporting bugs, suggesting features, or improving the code or docs.
+Contributions are always welcome, whether that's reporting bugs, suggesting features, or improving the code or documentation.
 
 Before opening a new issue, please check the [issues tab](https://github.com/sustentarea/logoclim/issues) to see if your topic has already been reported.
 

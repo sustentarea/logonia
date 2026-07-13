@@ -40,6 +40,7 @@
     "CMIP",
     "cnpq",
     "colorspace",
+    "comses",
     "Conselho",
     "cruts",
     "cumsum",
@@ -141,6 +142,7 @@
     "ycor",
     "yearmonth",
     "ymax",
-    "ymin"
+    "ymin",
+    "Zenodo"
   ]
 }

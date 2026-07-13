@@ -1,10 +1,10 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented below.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/). The project also follows [Semantic Versioning](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/).
 
-## v1.2.0.9000 (development version)
+## v1.2.0 (2026-07-13)
 
 ### Added
 
@@ -16,7 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Upgraded [`LogoClim`](https://github.com/sustentarea/logoclim) to v2.2.0.
 - Updated the *Climate Variable Inspection* world visualization mechanics.
 - Removed `inspection` as a global variable and dropped the switches `inspect-tmin`, `inspect-tmax`, and `inspect-prec`. Added a single switch `inspect-var?`, along with a chooser, `inspection-var`, to select the climate variable to inspect. The model no longer halts when toggling the switch during the simulation.
-- Refactored code in the Quarto notebooks for reproducing the model's data.
+- Refactored code in the Quarto notebooks for reproducing the model data.
 - Updated data files, following the latest changes in the [`LogoClim`](https://github.com/sustentarea/logoclim) model.
 - Updated the Code of Conduct to Contributor Covenant v3.0.
 - Updated all dependencies to their latest versions.

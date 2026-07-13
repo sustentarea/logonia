@@ -2,13 +2,13 @@
 <model version="NetLogo 7.0.4" snapToGrid="true">
   <code><![CDATA[; Logônia: Plant growth response model in NetLogo
 ;
-; Version: v1.2.0.9000 (development version)
+; Version: v1.2.0 (2026-07-13)
 ; Authors: Daniel Vartanian, Leandro Garcia, & Aline M. de Carvalho
 ; Maintainer: Daniel Vartanian <https://github.com/danielvartan>
 ; License: GPLv3 <https://www.gnu.org/licenses/gpl-3.0>
 ; Repository: <https://github.com/sustentarea/logonia>
 ;
-; Require: NetLogo >= 7.0.4
+; Require: NetLogo >= 7.0.1
 ; Required NetLogo extensions: `ls` and `string`
 ;
 ; Lines marked with 'LogoClim' refer to code associated to the LogoClim model.
@@ -388,7 +388,7 @@ plot 0.1</update>
     <note x="10" y="640" backgroundDark="0" fontSize="15" width="1400" markdown="true" height="26" textColorDark="-1" textColorLight="-16777216" backgroundLight="0"><![CDATA[<div style="text-align: center;">Climate Variables Inspection</div>]]></note>
     <button x="205" y="675" height="60" disableUntilTicks="false" forever="true" kind="Observer" width="135" display="Show Values">show-values</button>
     <switch x="345" y="675" height="60" on="false" variable="inspect-var?" width="116" display="inspect-var?"></switch>
-    <chooser x="465" y="675" height="60" variable="inspection-var" current="2" width="245" display="inspection-var">
+    <chooser x="465" y="675" height="60" variable="inspection-var" current="0" width="245" display="inspection-var">
       <choice type="string" value="Average Minimum Temperature (°C)"></choice>
       <choice type="string" value="Average Maximum Temperature (°C)"></choice>
       <choice type="string" value="Total Precipitation (mm)"></choice>
@@ -509,7 +509,7 @@ ifelse (#length = 12) [
 
 `Logônia` runs on a grid of patches, where each patch represents a piece of soil that can host a plant. Patches correspond to a specific geographic area and store historical climate data.
 
-Each simulation step represents *one month*. Over time, plants *grow*, *reproduce*, and *age*. These processes are controlled by sliders in the model's interface. Climate conditions directly influence growth probability, adding realism and complexity to the simulation.
+Each simulation step represents *one month*. Over time, plants *grow*, *reproduce*, and *age*. These processes are controlled by sliders in the model interface. Climate conditions directly influence growth probability, adding realism and complexity to the simulation.
 
 ### CLIMATE DATA
 
@@ -521,7 +521,7 @@ This dataset provides 12 monthly values per year for 1951-2024, based on [downsc
   <img src="worldclim-animation" />
 </p>
 
-The dataset can be reproduced using a [Quarto](https://quarto.org/) notebook in the `qmd` folder of the [model repository](https://github.com/sustentarea/logonia).
+The dataset can be reproduced using a [Quarto](https://quarto.org/) notebook in the `qmd` folder of the [model code repository](https://github.com/sustentarea/logonia).
 
 ### ENERGY AND GROWTH PROBABILITY
 
@@ -574,13 +574,11 @@ Plants age by `1` month per step. Age is shown by color, fading from lime to bro
 
 > Click [here](https://youtube.com/playlist?list=PL1CZfe9j9vWFY1U0YCzdVvGFDEFzf2NO4&si=fxaLGQnBcx180eNL) to see a showcase of the model.
 
-### SETUP
-
 `Logônia` was developed with [NetLogo](https://www.netlogo.org/) 7.0.4. Use this version or newer for best compatibility.
 
 The model relies on the NetLogo extensions [`LevelSpace`](https://ccl.northwestern.edu/netlogo/docs/ls.html) and [`String`](https://github.com/NetLogo/String-Extension). These extensions are installed automatically when the model is run for the first time.
 
-Once everything is ready, click **`Setup`** and then **`Go`** to start. No extra installation steps are needed.
+Once everything is set, click on the **`Setup`** and then **`Go`** buttons to start the simulation.
 
 ## INTERFACE
 
@@ -622,10 +620,6 @@ To visualize the underlying values of the climate variables on the world map, ac
 
 Click [here](https://www.youtube.com/watch?v=pz0UNH6t-kE&list=PL1CZfe9j9vWFY1U0YCzdVvGFDEFzf2NO4&index=2) to see a showcase of this feature.
 
-#### COLOR SCALE
-
-When visualizing the spatial distribution of each variable on the world map, the model represents values on a gradient from `black` (lowest) to `white` (highest). Each data series is displayed in a distinct color.
-
 #### INTERFACE
 
 ##### BUTTONS
@@ -644,6 +638,10 @@ When visualizing the spatial distribution of each variable on the world map, the
 - **`Global Mean prec (mm)`**: Monitor showing the global mean of the *Total Precipitation (mm)* variable across all patches.
 - **`Average Temperature (°C)`**: Plot showing the global mean of the *Average Minimum Temperature (°C)* and *Average Maximum Temperature (°C)* variables over time, including 12-month moving averages. Black horizontal lines indicate the start of a 12-month cycle.
 - **`Total Precipitation (mm)`**: Plot showing the global mean of the *Total Precipitation (mm)* variable over time, including a 12-month moving average. Black horizontal lines indicate the start of a 12-month cycle.
+
+##### COLOR SCALE
+
+When visualizing the spatial distribution of each variable on the world map, the model represents values on a gradient from `black` (lowest) to `white` (highest). Each data series is displayed in a distinct color.
 
 ### LOGISTIC REGRESSION
 
@@ -683,15 +681,15 @@ Click [here](https://www.youtube.com/watch?v=pz0UNH6t-kE&list=PL1CZfe9j9vWFY1U0Y
 
 ![Contributor Covenant 3.0 badge](contributor-covenant-3-0-badge)
 
-Contributions are always welcome, whether that's reporting bugs, suggesting features, or improving the code or docs.
+Contributions are always welcome, whether that's reporting bugs, suggesting features, or improving the code or documentation.
 
 Before opening a new issue, please check the [issues tab](https://github.com/sustentarea/logonia/issues) to see if your topic has already been reported.
 
 ## IMPORTANT LINKS
 
-- Logônia showcase playlist: <https://smplu.link/logonia>
+- Logônia showcase playlist: <https://youtube.com/playlist?list=PL1CZfe9j9vWFY1U0YCzdVvGFDEFzf2NO4&si=ZY4qu5oO6K-7WVOq>
 - Code repository: <https://github.com/sustentarea/logonia>
-- Latest release: <https://github.com/sustentarea/logonia/releases/latest>
+- CoMSES repository: <https://www.comses.net/codebases/4f2be13a-3957-4537-bf64-3fad96ba271f>
 - OSF repository: <https://doi.org/10.17605/OSF.IO/TPY7S>
 - Support: <https://github.com/sponsors/danielvartan>
 
@@ -761,7 +759,7 @@ Fick, S. E., & Hijmans, R. J. (2017). WorldClim 2: New 1-km spatial resolution c
 
 Harris, I., Osborn, T. J., Jones, P., & Lister, D. (2020). Version 4 of the CRU TS monthly high-resolution gridded multivariate climate dataset. *Scientific Data*, *7*(1), 109. <https://doi.org/10.1038/s41597-020-0453-3>
 
-Vartanian, D., Garcia, L., & Carvalho, A. M. (2026). *LogoClim: WorldClim in NetLogo* \[Computer software\]. GitHub. <https://github.com/sustentarea/logoclim>]]></info>
+Vartanian, D., Garcia, L., & Carvalho, A. M. (2026). *LogoClim: WorldClim in NetLogo* \[Computer software\]. Zenodo. <https://doi.org/10.5281/zenodo.21330590>]]></info>
   <turtleShapes>
     <shape name="default" rotatable="true" editableColorIndex="0">
       <polygon color="-1920102913" filled="true" marked="true">

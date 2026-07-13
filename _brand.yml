@@ -1,8 +1,10 @@
 meta:
   name: "Logônia: Plant Growth Response Model in NetLogo"
   link:
-    home: https://github.com/sustentarea/logonia
-    github: https://github.com/sustentarea/logonia
+    home: "https://github.com/sustentarea/logonia"
+    github: "https://github.com/sustentarea/logonia"
+    comses: "https://www.comses.net/codebases/4f2be13a-3957-4537-bf64-3fad96ba271f"
+    osf: "https://doi.org/10.17605/OSF.IO/TPY7S"
   description: >-
     Logônia is a NetLogo model that simulates the growth response of a
     fictional plant, Logônia, under different climatic conditions. The model
@@ -12,14 +14,14 @@ meta:
 logo:
   images:
     logo:
-      path: images/logo.png
+      path: "images/logo.png"
       alt: "Logo"
     og-image:
-      path: images/og-image.png
+      path: "images/og-image.png"
       alt: "Open Graph Image"
-  small: logo
-  medium: logo
-  large: logo
+  small: "logo"
+  medium: "logo"
+  large: "logo"
 
 color:
   palette:
@@ -32,39 +34,39 @@ color:
     gray: "#8d8d8d" # NetLogo: gray (5)
     light-gray: "#e8e8e8" # NetLogo: gray + 4 (9)
     black: "#000000"
-  background: white
-  primary: lime
-  secondary: olive-brown
-  tertiary: brown
-  success: lime
-  info: lime-green
-  warning: olive-brown
-  danger: brown
-  light: white
-  dark: black
+  background: "white"
+  primary: "lime"
+  secondary: "olive-brown"
+  tertiary: "brown"
+  success: "lime"
+  info: "lime-green"
+  warning: "olive-brown"
+  danger: "brown"
+  light: "white"
+  dark: "black"
 
 typography:
   fonts:
-    - family: Poppins
-      source: google
+    - family: "Poppins"
+      source: "google"
       weight: [100, 200, 300, 400, 500, 600, 700, 800, 900]
-    - family: DM Mono
-      source: google
+    - family: "DM Mono"
+      source: "google"
       weight: [300, 400, 500]
   base:
-    family: Poppins
+    family: "Poppins"
     line-height: 1.5
-    weight: normal
+    weight: "normal"
   headings:
-    family: Poppins
-    color: brown
-    weight: bold
-  monospace: DM Mono
+    family: "Poppins"
+    color: "brown"
+    weight: "bold"
+  monospace: "DM Mono"
   monospace-inline:
-    color: lime
-    background-color: light-gray
+    color: "lime"
+    background-color: "light-gray"
   monospace-block:
-    background-color: light-gray
+    background-color: "light-gray"
   link:
-    color: lime
-    decoration: underline
+    color: "lime"
+    decoration: "underline"

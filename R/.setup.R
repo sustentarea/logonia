@@ -1,4 +1,4 @@
-# Load Packages -----
+# Load packages -----
 
 library(brandr)
 library(ggplot2)
@@ -7,7 +7,7 @@ library(magrittr)
 library(ragg)
 library(systemfonts)
 
-# Set Options -----
+# Set options -----
 
 options(scipen = 999)
 

@@ -124,9 +124,7 @@ plot_sigmoid(
 
 ## Plot Animated Data
 
-### Plot Animation 1
-
-#### Load Custom Functions
+### Load Custom Functions
 
 ::: {.callout-note}
 The source code for the functions below can be found in the [R directory](https://github.com/sustentarea/logonia/tree/main/R) of the code repository.
@@ -138,7 +136,7 @@ The source code for the functions below can be found in the [R directory](https:
 here("R", "plot_animated_data.R") |> source()
 ```
 
-#### Plot Animation
+### Plot Animation
 
 ```{r}
 plot_animated_data(
@@ -148,30 +146,5 @@ plot_animated_data(
   width = 1000,
   height = 300,
   file_name = images_dir |> file.path("worldclim-animation.gif")
-)
-```
-
-### Plot Animation 2
-
-#### Load Custom Functions
-
-::: {.callout-note}
-The source code for the functions below can be found in the [R directory](https://github.com/sustentarea/logonia/tree/main/R) of the code repository.
-:::
-
-```{r}
-here("R", "plot_animated_data-2.R") |> source()
-```
-
-#### Plot Animation
-
-```{r}
-plot_animated_data(
-  year = 1951,
-  months = 3,
-  text_size = 18,
-  width = 1000,
-  height = 300,
-  file_name = images_dir |> file.path("worldclim-animation-2.gif")
 )
 ```

@@ -45,6 +45,8 @@ library(here)
 library(janitor)
 library(logolink)
 library(lubridate)
+library(magrittr)
+library(purrr)
 library(ragg)
 library(tidyr)
 library(tsibble)
@@ -81,7 +83,7 @@ results |> glimpse()
 
 data <-
   results |>
-  extract2("table") |>
+  pluck("table") |>
   clean_names() |>
   mutate(
     month = start_month |>
