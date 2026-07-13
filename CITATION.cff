@@ -50,5 +50,5 @@ identifiers:
     value: 10.17605/OSF.IO/TPY7S
     description: OSF Repository
 repository-code: https://github.com/sustentarea/logonia
-license: GPLv3
+license: GPL-3.0-or-later
 version: 1.2.0
