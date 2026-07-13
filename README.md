@@ -2,7 +2,8 @@
 
 <!-- badges: start -->
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![CoMSES Network badge](https://img.shields.io/badge/CoMSES%20Network-1.2.0-1284C5.svg)](https://www.comses.net/codebases/4f2be13a-3957-4537-bf64-3fad96ba271f/)
+[![DOI Badge](https://img.shields.io/badge/doi-10.5281/zenodo.21332539-1284C5.svg)](https://doi.org/10.5281/zenodo.21332539)
+[![CoMSES Network badge](https://img.shields.io/badge/CoMSES%20Network-1.2.1-1284C5.svg)](https://www.comses.net/codebases/4f2be13a-3957-4537-bf64-3fad96ba271f/)
 [![Check NetLogo workflow badge](https://github.com/sustentarea/logonia/workflows/check-netlogo.yaml/badge.svg)](https://github.com/sustentarea/logonia/actions)
 [![FAIR checklist badge](https://img.shields.io/badge/fairsoftwarechecklist.net--00a7d9)](https://fairsoftwarechecklist.net/v0.2?f=31&a=30113&i=32300&r=123)
 [![fair-software.eu](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F-green)](https://fair-software.eu)
@@ -121,9 +122,11 @@ Before opening a new issue, please check the [issues tab](https://github.com/sus
 
 ## Citation
 
+[![DOI Badge](https://img.shields.io/badge/doi-10.5281/zenodo.21332539-1284C5.svg)](https://doi.org/10.5281/zenodo.21332539)
+
 To cite `Logônia` please use the following format:
 
-Vartanian, D., Garcia, L., & Carvalho, A. M. (2026). *Logônia: Plant growth response model in NetLogo* \[Computer software\]. GitHub. <https://github.com/danielvartan/logonia>
+Vartanian, D., Garcia, L., & Carvalho, A. M. (2026). *Logônia: Plant growth response model in NetLogo* \[Computer software\]. Zenodo. <https://doi.org/10.5281/zenodo.21332539>
 
 A BibLaTeX entry for LaTeX users is:
 
@@ -132,8 +135,8 @@ A BibLaTeX entry for LaTeX users is:
   title = {Logônia: Plant growth response model in NetLogo},
   author = {{Daniel Vartanian} and {Leandro Garcia} and {Aline Martins de Carvalho}},
   year = {2026},
-  publisher = {GitHub},
-  url = {https://github.com/danielvartan/logonia}
+  doi = {10.5281/zenodo.21332539},
+  publisher = {Zenodo}
 }
 ```
 

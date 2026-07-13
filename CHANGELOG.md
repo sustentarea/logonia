@@ -4,6 +4,16 @@ All notable changes to this project will be documented below.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/). The project also follows [Semantic Versioning](https://semver.org/) and [Conventional Commits](https://www.conventionalcommits.org/).
 
+## v1.2.1 (2026-07-13)
+
+### Added
+
+- A [Zenodo](https://zenodo.org/) DOI was created for this and future releases of the project.
+
+### Changed
+
+- The documentation was updated.
+
 ## v1.2.0 (2026-07-13)
 
 ### Added

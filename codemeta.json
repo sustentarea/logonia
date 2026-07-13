@@ -95,8 +95,10 @@
   "codeRepository": "https://github.com/sustentarea/logonia",
   "issueTracker": "https://github.com/sustentarea/logonia/issues",
   "relatedLink": [
+    "https://doi.org/10.5281/zenodo.21332539",
     "https://www.comses.net/codebases/4f2be13a-3957-4537-bf64-3fad96ba271f",
     "https://doi.org/10.17605/OSF.IO/TPY7S",
+    "https:/doi.org/10.5281/zenodo.21330590",
     "https://github.com/sponsors/danielvartan"
   ],
   "runtimePlatform": "NetLogo version 7.0.4",
@@ -150,5 +152,5 @@
   "developmentStatus": "active",
   "readme": "https://github.com/sustentarea/logonia/blob/main/README.md",
   "releaseNotes": "https://github.com/sustentarea/logoclim/blob/main/CHANGELOG.md",
-  "version": "1.2.0"
+  "version": "1.2.1"
 }

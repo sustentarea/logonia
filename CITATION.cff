@@ -40,6 +40,9 @@ keywords:
   - Climate Simulations
   - Environmental Sciences
 identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21332539
+    description: Zenodo Registry
   - type: url
     value: https://github.com/danielvartan/logonia
     description: GitHub Code Repository
@@ -51,4 +54,4 @@ identifiers:
     description: OSF Repository
 repository-code: https://github.com/sustentarea/logonia
 license: GPL-3.0-or-later
-version: 1.2.0
+version: 1.2.1
