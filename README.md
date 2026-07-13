@@ -13,7 +13,7 @@
 
 ## Overview
 
-`Logônia` is a [NetLogo](https://www.netlogo.org) model that simulates the growth response of a fictional plant, Logônia, under different climatic conditions. The model uses climate data from [WorldClim 2.1](https://worldclim.org/) and demonstrates how to integrate the [`LogoClim`](https://github.com/sustentarea/logoclim) model through the [`LevelSpace`](https://ccl.northwestern.edu/netlogo/docs/ls.html) extension.
+`Logônia` is a [NetLogo](https://www.netlogo.org) model that simulates the growth response of a fictional plant, Logônia, under different climatic conditions. The model uses climate data from [WorldClim 2.1](https://worldclim.org/) and demonstrates how to integrate the [`LogoClim`](https://github.com/sustentarea/logoclim) model through the [`LevelSpace`](https://docs.netlogo.org/ls) extension.
 
 > If you find this project useful, please consider giving it a star! [![GitHub repo stars](https://img.shields.io/github/stars/sustentarea/logonia)](https://github.com/sustentarea/logonia/)
 
@@ -96,7 +96,7 @@ Plants age by `1` month per step. Age is shown by color, fading from lime to bro
 
 To get started using `Logônia`, you must have [NetLogo](https://www.netlogo.org) installed. The model was developed with NetLogo 7.0.4. Use this version or newer for best compatibility. The NetLogo [website](https://www.netlogo.org) provides easy installers for Windows, macOS, and Linux, along with detailed instructions for installation.
 
-The model relies on the NetLogo extensions [`LevelSpace`](https://ccl.northwestern.edu/netlogo/docs/ls.html) and [`String`](https://github.com/NetLogo/String-Extension). These extensions are installed automatically when the model is run for the first time.
+The model relies on the NetLogo extensions [`LevelSpace`](https://github.com/NetLogo/LevelSpace) and [`String`](https://github.com/NetLogo/String-Extension). These extensions are installed automatically when the model is run for the first time.
 
 With NetLogo ready, follow these steps to get `Logônia` up and running.
 

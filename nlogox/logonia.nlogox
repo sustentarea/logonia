@@ -499,7 +499,7 @@ ifelse (#length = 12) [
 
 ## WHAT IS IT?
 
-`Logônia` is a [NetLogo](https://www.netlogo.org) model that simulates the growth response of a fictional plant, Logônia, under different climatic conditions. The model uses climate data from [WorldClim 2.1](https://worldclim.org/) and demonstrates how to integrate the [`LogoClim`](https://github.com/sustentarea/logoclim) model through the [`LevelSpace`](https://ccl.northwestern.edu/netlogo/docs/ls.html) extension.
+`Logônia` is a [NetLogo](https://www.netlogo.org) model that simulates the growth response of a fictional plant, Logônia, under different climatic conditions. The model uses climate data from [WorldClim 2.1](https://worldclim.org/) and demonstrates how to integrate the [`LogoClim`](https://github.com/sustentarea/logoclim) model through the [`LevelSpace`](https://docs.netlogo.org/ls) extension.
 
 <p align="center">
   <img src="logonia-evolution" />
@@ -576,7 +576,7 @@ Plants age by `1` month per step. Age is shown by color, fading from lime to bro
 
 `Logônia` was developed with [NetLogo](https://www.netlogo.org/) 7.0.4. Use this version or newer for best compatibility.
 
-The model relies on the NetLogo extensions [`LevelSpace`](https://ccl.northwestern.edu/netlogo/docs/ls.html) and [`String`](https://github.com/NetLogo/String-Extension). These extensions are installed automatically when the model is run for the first time.
+The model relies on the NetLogo extensions [`LevelSpace`](https://github.com/NetLogo/LevelSpace) and [`String`](https://github.com/NetLogo/String-Extension). These extensions are installed automatically when the model is run for the first time.
 
 Once everything is set, click on the **`Setup`** and then **`Go`** buttons to start the simulation.
 
